@@ -4,13 +4,19 @@ import router from "./src/routes/index.js";
 import { errorHandler } from "./src/common/middlewares/errorHandler.js";
 import { HOST, PORT } from "./src/common/configs/.environment.js";
 import setupSwagger from "./src/common/configs/swagger-config.js";
-
+import cors from "cors";
 const app = express();
 // connect mongodb
 connectDB();
 // xu ly json body tu client
 app.use(express.json());
 
+app.use(
+  cors({
+    origin: "http://localhost:5173",
+    credentials: true,
+  })
+);
 // middleware xu ly loi => phai dat cuoi cung
 app.use("/api", router);
 
